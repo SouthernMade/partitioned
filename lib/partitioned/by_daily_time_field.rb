@@ -23,6 +23,12 @@ module Partitioned
       return 1.day
     end
 
+    # the field to partition on, `created_at`
+    # @return [Symbol] the partition field: `created_at`
+    def self.partition_time_field
+      return :created_at
+    end
+
     partitioned do |partition|
       partition.base_name lambda { |model, time_field|
         return model.partition_normalize_key_value(time_field).strftime('%Y%m%d')
