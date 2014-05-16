@@ -65,7 +65,7 @@ module Partitioned
         return model.partition_normalize_key_value(time_field).strftime('%Y%m%d')
       }
       partition.check_constraint lambda { |model, time_field|
-        date = model.partition_normalize_key_value(time_field)
+        date = model.partition_normalize_key_value(time_field).to_date
         return "#{model.partition_time_field} >= '#{date.strftime}' AND #{model.partition_time_field} < '#{(date + model.partition_table_size).strftime}'"
       }
     end
